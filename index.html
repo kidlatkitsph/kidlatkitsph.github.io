@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  CONFIG: EDIT ONLY THIS BLOCK. Everything on the page updates.    ║
+║  Leave a value as "" to hide that contact button.                ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<script>
+window.SITE_CONFIG = {
+  SHOP_NAME:        "KidlatKitsPH",            // final business name (DTI)
+  LOCATION:         "Malabon · Metro Manila",
+  MESSENGER_HANDLE: "",                        // FB page username, e.g. "kidlatkitsph" -> https://m.me/kidlatkitsph
+  FB_PAGE_URL:      "",                        // e.g. "https://facebook.com/kidlatkitsph"
+  EMAIL:            "",                        // e.g. "kidlatkitsph@gmail.com"
+  PHONE_INTL:       "",                        // Viber/SMS, international format, e.g. "+639171234567"
+  GUIDE_CATALOG_URL: "",                       // OPTIONAL: link to a guide list (e.g. FB album or view-only Google Drive). Empty = "order via Messenger"
+  DTI_NO:           "",                        // DTI Business Name No., e.g. "1234567". Empty = "registration in progress"
+  BIR_REGISTERED:   false                      // set to true once you have BIR Form 2303
+};
+</script>
+<!-- ═══════════════════════ END OF CONFIG ═══════════════════════════ -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KidlatKitsPH ⚡ Arduino, ESP32 &amp; GSM builds, kits and guides</title>
+<meta name="description" content="Arduino/ESP32/GSM builds, thesis hardware tutoring (no ghostwriting), DIY kits, Taglish guides and FB seller auto-reply setup by KidlatKitsPH. Malabon · Metro Manila, meet-ups along LRT-1. Weekends.">
+<meta property="og:title" content="KidlatKitsPH ⚡ Arduino, ESP32 &amp; GSM builds, kits and guides">
+<meta property="og:description" content="Malabon · Metro Manila. Meet-ups along LRT-1. GCash, Maya, bank or cash.">
+<meta name="theme-color" content="#072e1f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* ── PCB Workshop theme ── fonts fall back to system mono/sans if Google Fonts fails */
+:root{
+  --board:#0a3d2a;--board2:#072e1f;--card:rgba(7,46,31,.92);--trace:#2f7a55;
+  --gold:#c9a227;--gold2:#e0b43a;--volt:#ffd23f;--goldtext:#ffe08a;
+  --text:#e6f7ec;--muted:#b3dcc5;--warn:#ffd23f;--radius:6px;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono","DejaVu Sans Mono",monospace;
+  --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--text);font:17px/1.65 var(--sans);-webkit-font-smoothing:antialiased;background-color:var(--board);
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:24px 24px}
+a{color:var(--goldtext)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--volt);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:5;background:rgba(7,46,31,.96);backdrop-filter:blur(6px);border-bottom:2px solid var(--gold)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+.brand{font-family:var(--mono);font-weight:800;font-size:1.1rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:12px;min-width:0}
+.logo{flex:0 0 34px;width:34px;height:34px;border-radius:4px;display:grid;place-items:center;background:var(--board);border:2px solid var(--gold);box-shadow:0 0 0 4px var(--board2),0 0 0 5px var(--gold)}
+.logo svg{width:20px;height:20px;filter:drop-shadow(0 0 4px rgba(255,210,63,.6))}
+.brand .ph{color:var(--gold2)}
+.volt{color:var(--volt)}
+.nav a.navlink{font-family:var(--mono);color:var(--muted);text-decoration:none;margin-left:18px;font-size:.88rem}
+.nav a.navlink:hover{color:var(--goldtext)}
+.nav .links{display:none}
+@media(min-width:860px){.nav .links{display:block}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 24px;border-radius:4px;font-family:var(--mono);font-weight:800;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:2px solid var(--gold2);color:#062014;background:var(--gold2)}
+.btn:hover{background:var(--volt);border-color:var(--volt)}
+.btn.ghost{background:transparent;color:var(--goldtext)}
+.btn.ghost:hover{background:rgba(224,180,58,.12)}
+.btn.sm{min-height:40px;padding:6px 14px;font-size:.8rem;white-space:nowrap}
+.hero{padding:84px 0 76px}
+.silk{font-family:var(--mono);font-size:.78rem;color:#fff;opacity:.8;border:1px solid rgba(255,255,255,.5);display:inline-block;padding:4px 10px;margin-bottom:22px;letter-spacing:.06em}
+.kicker{font-family:var(--mono);color:var(--gold2);font-weight:600;font-size:.88rem;letter-spacing:.02em}
+.kicker::before{content:"> "}
+h1,h2,h3{font-family:var(--mono);color:#fff}
+h1{font-size:clamp(2.1rem,7.5vw,3.6rem);line-height:1.12;font-weight:800;margin:.35em 0 .45em;letter-spacing:-.01em}
+h2{font-size:clamp(1.8rem,5.5vw,2.5rem);line-height:1.2;margin:0 0 .6em;font-weight:800}
+h2::before{content:"// ";color:var(--gold)}
+h3{margin:.3em 0 .4em;font-size:1.12rem;line-height:1.35}
+.lead{color:var(--muted);font-size:1.15rem;max-width:660px;margin:0 0 8px}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.note{display:inline-block;margin-top:22px;padding:10px 14px;border:1px solid var(--gold);border-radius:4px;background:var(--board2);color:var(--goldtext);font-family:var(--mono);font-size:.86rem;line-height:1.5}
+.note strong{color:#fff}
+section{padding:76px 0;border-top:2px dashed rgba(201,162,39,.45)}
+section:nth-of-type(even){background:rgba(7,46,31,.45)}
+.grid{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:680px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.grid.three{grid-template-columns:repeat(3,1fr)}}
+.card{position:relative;background:var(--card);border:1.5px solid var(--trace);border-radius:var(--radius);padding:28px 24px}
+.grid .card::before,.grid .card::after{content:"";position:absolute;top:14px;width:12px;height:12px;border-radius:50%;border:3px solid var(--gold);background:var(--board)}
+.grid .card::before{right:14px}.grid .card::after{right:36px}
+.card p{margin:.4em 0;color:var(--muted)}
+.card strong{color:#fff}
+.ico{font-size:1.9rem}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1.5px solid var(--trace);border-left:6px solid var(--gold);border-radius:var(--radius);overflow:hidden}
+th,td{text-align:left;padding:16px 16px;border-bottom:1px solid rgba(47,122,85,.6);vertical-align:top}
+th{background:var(--board2);font-family:var(--mono);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--goldtext)}
+td{color:var(--text)}
+td.price{white-space:nowrap;font-family:var(--mono);font-weight:800;font-size:1.05rem;color:var(--volt);text-align:right}
+td.price .small{display:block;font-weight:400;font-size:.78rem}
+tr:last-child td{border-bottom:0}
+.small{font-size:.9rem;color:var(--muted)}
+.warn{color:var(--warn)}
+section > .wrap > .small{margin-top:20px}
+ol.steps{list-style:none;padding:0;margin:0;counter-reset:s;display:grid;gap:16px}
+ol.steps li{counter-increment:s;position:relative;padding:20px 20px 20px 74px;background:var(--card);border:1.5px solid var(--trace);border-radius:var(--radius);color:var(--muted)}
+ol.steps li strong{color:#fff}
+ol.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:18px;top:18px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--board);border:3px solid var(--gold);color:var(--volt);font-family:var(--mono);font-weight:800;font-size:.85rem}
+/* LRT-1 as a vertical station line */
+.line{list-style:none;margin:28px 0 8px;padding:0;display:grid;gap:0}
+@media(min-width:760px){.line{display:block;columns:2;column-gap:48px}.line li{break-inside:avoid}}
+.line li{position:relative;margin-left:10px;padding:7px 0 7px 30px;border-left:4px solid var(--gold);font-family:var(--mono);font-size:.92rem;color:var(--muted)}
+.line li::before{content:"";position:absolute;left:-11px;top:50%;width:14px;height:14px;margin-top:-10px;border-radius:50%;background:var(--board);border:3px solid var(--gold)}
+.line li.hl{color:var(--volt);font-weight:800}
+.line li.hl::before{background:var(--volt)}
+.line li.end{color:#fff;font-weight:800}
+.line li.end::before{background:#fff;border-color:#fff}
+details{background:var(--card);border:1.5px solid var(--trace);border-radius:var(--radius);padding:4px 20px;margin-bottom:12px}
+details[open]{border-color:var(--gold)}
+summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;color:#fff}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--gold2);font-family:var(--mono);font-weight:800;margin-left:12px}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin:0 0 16px}
+.pay{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:8px}
+.pill{padding:10px 16px;border-radius:4px;border:1.5px solid var(--gold);background:var(--board2);color:var(--goldtext);font-family:var(--mono);font-weight:600;font-size:.9rem}
+.badge{display:flex;gap:16px;align-items:center;padding:18px;border-radius:var(--radius);border:1.5px solid var(--trace);background:var(--card)}
+.badge .seal{flex:0 0 48px;height:48px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--muted);color:var(--muted);font-weight:800;background:var(--board)}
+.badge.ok .seal{border-color:var(--gold2);color:var(--volt)}
+.contact .grid{margin-top:24px}
+.contact .btn{width:100%}
+@media(min-width:680px){.contact .btn{width:auto}}
+footer{padding:36px 0 100px;color:var(--muted);font-family:var(--mono);font-size:.82rem;line-height:1.8;border-top:2px solid var(--gold);background:var(--board2)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:9;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.hidden{display:none !important}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="#ffd23f" d="M13.5 2 4 13.5h6.2L9 22l10-12.2h-6.3z"/></svg></span><span>KidlatKits<span class="ph">PH</span></span></a>
+    <nav class="links" aria-label="Main">
+      <a class="navlink" href="#services">Services</a>
+      <a class="navlink" href="#pricing">Pricing</a>
+      <a class="navlink" href="#how">How it works</a>
+      <a class="navlink" href="#meetups">Meet-ups</a>
+      <a class="navlink" href="#faq">FAQ</a>
+    </nav>
+    <a class="btn sm" href="#contact">Message us</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="silk" aria-hidden="true">REV 1.0 · KK-PH-001 · MALABON</div>
+      <div class="kicker">Arduino · ESP32 · GSM/SMS · <span data-cfg="LOCATION">Malabon · Metro Manila</span></div>
+      <h1>Hardware that works, at mga project na natatapos <span class="volt">⚡</span></h1>
+      <p class="lead">Custom Arduino, ESP32 at GSM/SMS builds, thesis hardware tutoring, DIY kits with Taglish guides, and Messenger auto-replies for FB sellers. Clear quotes, honest timelines, walang hidden fees.</p>
+      <div class="cta">
+        <a class="btn" href="#contact">Get a quote</a>
+        <a class="btn ghost" href="#pricing">See prices</a>
+      </div>
+      <div class="note">🗓️ Weekend schedule: builds, meet-ups and full replies on <strong>Saturday–Sunday</strong>.</div><br>
+      <div class="note">🚆 Meet-ups along <strong>LRT-1</strong>: Fernando Poe Jr. (Roosevelt) to Dr. Santos (Sucat).</div>
+    </div>
+  </div>
+
+  <section id="services" aria-labelledby="h-services">
+    <div class="wrap">
+      <h2 id="h-services">Services</h2>
+      <div class="grid three">
+        <div class="card"><div class="ico" aria-hidden="true">🛠️</div><h3>Hardware &amp; coding jobs</h3><p>Arduino/ESP32 builds, GSM/SMS alerts, relay control, serial tools and small automation scripts.</p></div>
+        <div class="card"><div class="ico" aria-hidden="true">🎓</div><h3>Thesis tutoring + hardware build</h3><p>We help build the prototype and teach you every line. <strong>No ghostwriting</strong>: your paper and defence stay yours.</p></div>
+        <div class="card"><div class="ico" aria-hidden="true">📦</div><h3>DIY kits</h3><p>Tested parts plus a step-by-step Taglish guide and working code. Pang-beginner hanggang project-ready.</p></div>
+        <div class="card"><div class="ico" aria-hidden="true">📘</div><h3>Guides &amp; code templates</h3><p>Wiring diagrams, AT-command cheat sheets and ready-to-flash sketches for Filipino hobbyists.</p></div>
+        <div class="card"><div class="ico" aria-hidden="true">🤖</div><h3>FB seller auto-replies</h3><p>Taglish FAQ bot for your Facebook page (“HM po?”, “Avail?”) on Meta's free tools. One-time fee, <strong>no monthly bill</strong>.</p></div>
+        <div class="card"><div class="ico" aria-hidden="true">🔧</div><h3>Debug &amp; consult</h3><p>Stuck sa code o wiring? Book an hour and we'll find the problem with you.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" aria-labelledby="h-pricing">
+    <div class="wrap">
+      <h2 id="h-pricing">Pricing</h2>
+      <p class="small">Starting prices. Final quote depends on scope. Parts are billed at cost unless stated.</p>
+      <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th scope="col">Service / item</th><th scope="col">Price</th></tr></thead>
+        <tbody>
+          <tr><td>Consult / debug session (1-hr minimum)</td><td class="price">₱500/hr</td></tr>
+          <tr><td>Small build: 1 sensor + SMS alert, or relay control</td><td class="price">from ₱3,000 <span class="small">+ parts</span></td></tr>
+          <tr><td>Thesis / capstone: hardware build + tutoring <span class="small">(no ghostwriting)</span></td><td class="price">from ₱8,000 <span class="small">+ parts</span></td></tr>
+          <tr><td><strong>Kit K1</strong>: ESP32 Temp Alarm + Relay Starter</td><td class="price">₱990</td></tr>
+          <tr><td><strong>Kit K2</strong>: “First SMS Relay” (Nano + SIM800L)<br><span class="small warn">⚠️ 2G learning kit: needs 2G signal in your area; 2G is being phased out in PH.</span></td><td class="price">₱1,490</td></tr>
+          <tr><td><strong>Kit K3</strong>: “First 4G GSM Alarm” (Nano + A7670E)<br><span class="small">Subject to modem stock.</span></td><td class="price">₱2,290</td></tr>
+          <tr><td>Guides &amp; code templates (PDF + code)</td><td class="price">₱149–₱299</td></tr>
+          <tr><td>FB auto-reply setup: <strong>Basic</strong> (instant reply, FAQ, away message)</td><td class="price">₱1,500</td></tr>
+          <tr><td>FB auto-reply setup: <strong>Plus</strong> (Basic + keyword replies, order template, handover call)</td><td class="price">₱2,500</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small">Guides: pay via GCash or Maya, and we send the file by Messenger or email. <a data-href="GUIDE_CATALOG_URL" href="#contact">See guide list →</a></p>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="h-how">
+    <div class="wrap">
+      <h2 id="h-how">How it works</h2>
+      <ol class="steps">
+        <li><strong>Inquiry.</strong> Message us: what the project is, the deadline and your budget.</li>
+        <li><strong>Quote.</strong> You get a written scope, price, timeline and terms. Walang surprise.</li>
+        <li><strong>50% downpayment.</strong> Work and parts purchase start after the DP.</li>
+        <li><strong>Build.</strong> Weekend build sessions, with a progress update and a demo video before handover.</li>
+        <li><strong>Handover.</strong> Pay the balance, get the code, wiring diagram and walkthrough, plus <strong>30-day workmanship warranty</strong>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="meetups" aria-labelledby="h-meet">
+    <div class="wrap">
+      <h2 id="h-meet">Meet-ups along LRT-1 🚆</h2>
+      <p class="lead">Pick up kits or hand over projects at any LRT-1 station, from <strong>Fernando Poe Jr. (Roosevelt)</strong> to <strong>Dr. Santos (Sucat)</strong>. Closest to us: <span class="volt">Monumento, 5th Avenue, Balintawak</span>.</p>
+      <ul class="line" aria-label="LRT-1 stations, north to south">
+        <li class="end">Fernando Poe Jr.</li><li class="hl">Balintawak</li><li class="hl">Monumento</li><li class="hl">5th Avenue</li><li>R. Papa</li><li>Abad Santos</li><li>Blumentritt</li><li>Tayuman</li><li>Bambang</li><li>Doroteo Jose</li><li>Carriedo</li><li>Central Terminal</li><li>United Nations</li><li>Pedro Gil</li><li>Quirino</li><li>Vito Cruz</li><li>Gil Puyat</li><li>Libertad</li><li>EDSA</li><li>Baclaran</li><li>Redemptorist-Aseana</li><li>MIA Road</li><li>PITX</li><li>Ninoy Aquino Ave.</li><li class="end">Dr. Santos</li>
+      </ul>
+      <p class="small">Not near the line? Same-day <strong>Lalamove</strong> in Metro Manila, or <strong>J&amp;T / LBC</strong> nationwide.</p>
+    </div>
+  </section>
+
+  <section id="faq" aria-labelledby="h-faq">
+    <div class="wrap">
+      <h2 id="h-faq">FAQ</h2>
+      <details><summary>Gumagawa ba kayo ng buong thesis?</summary><p>Hindi po. We tutor and help build the hardware/prototype, and we explain every part until you can defend it yourself. We don't write chapters, papers or defence answers.</p></details>
+      <details><summary>Kailan kayo available?</summary><p>Weekends (Saturday–Sunday) for builds, meet-ups and full replies. Weekday messages are answered by our auto-reply and followed up in the evenings or on the weekend.</p></details>
+      <details><summary>What does the 30-day warranty cover?</summary><p>Faults in our own wiring or code, fixed free within 30 days of handover. Not covered: physical or water damage, wrong power supply, changes by others, or modules that fail on their own (we'll help replace them at cost).</p></details>
+      <details><summary>Will the SMS kit work in my area?</summary><p>K2 uses a 2G-only modem and only works where 2G is still available; treat it as a learning kit. For long-term use, choose K3 (4G LTE).</p></details>
+      <details><summary>Paano ang delivery ng kits?</summary><p>Free meet-up at any LRT-1 station (Fernando Poe Jr. to Dr. Santos), Lalamove same-day in Metro Manila, or J&amp;T/LBC nationwide. Shipping is quoted before you pay.</p></details>
+      <details><summary>Paano bumili ng guide?</summary><p>Message us on Messenger, pay via GCash or Maya, and we send the PDF + code by Messenger or email (or a Google Drive link).</p></details>
+      <details><summary>Do you issue invoices?</summary><p>Yes. Registered businesses issue invoices for sales of ₱500 or more. See our registration details below.</p></details>
+    </div>
+  </section>
+
+  <section id="pay" aria-labelledby="h-pay">
+    <div class="wrap">
+      <h2 id="h-pay">Payment methods</h2>
+      <div class="pay"><span class="pill">GCash</span><span class="pill">Maya</span><span class="pill">Bank transfer (InstaPay / PESONet)</span><span class="pill">Cash on meet-up</span><span class="pill">COD (J&amp;T)</span></div>
+      <p class="small">Account details are sent with your written quote. Always confirm the account name before paying.</p>
+
+      <!-- ─── TESTIMONIALS: uncomment and add REAL client quotes (with permission) later ───
+      <h2 style="margin-top:32px">What clients say</h2>
+      <div class="grid two">
+        <figure class="card"><blockquote>“Real quote here.”</blockquote><figcaption class="small">First name, project type</figcaption></figure>
+      </div>
+      ───────────────────────────────────────────────────────────────────────────────────── -->
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="h-contact" class="contact">
+    <div class="wrap">
+      <h2 id="h-contact">Contact</h2>
+      <p class="lead">Send your project details for a free quote. Fastest via Messenger.</p>
+      <div class="grid two">
+        <a class="btn" data-link="messenger" href="#">💬 Message on Messenger</a>
+        <a class="btn ghost" data-link="email" href="#">✉️ Email</a>
+        <a class="btn ghost" data-link="viber" href="#">📞 Viber</a>
+        <a class="btn ghost" data-link="sms" href="#">📱 SMS</a>
+      </div>
+      <p class="small hidden" id="no-contact">Contact links coming soon.</p>
+
+      <div style="margin-top:22px" class="badge" id="reg-badge">
+        <div class="seal" aria-hidden="true">✓</div>
+        <div>
+          <strong id="reg-title">Business registration in progress</strong><br>
+          <span class="small" id="reg-detail">DTI and BIR details will appear here.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    © <span id="yr">2026</span> <span data-cfg="SHOP_NAME">KidlatKitsPH</span> ⚡ · <span data-cfg="LOCATION">Malabon · Metro Manila</span> · Meet-ups along LRT-1<br>
+    Prices in Philippine pesos. Starting prices; final quote in writing.
+  </div>
+</footer>
+
+<a class="btn fab" data-link="messenger" href="#contact" aria-label="Message us">💬 Chat</a>
+
+<script>
+(function(){
+  var C = window.SITE_CONFIG || {};
+  function $all(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
+  $all('[data-cfg]').forEach(function(el){var v=C[el.getAttribute('data-cfg')]; if(v) el.textContent=v;});
+  if (C.SHOP_NAME) document.title = C.SHOP_NAME + " ⚡ Arduino, ESP32 & GSM builds, kits and guides";
+  var phone = (C.PHONE_INTL||"").replace(/[^\d+]/g,"");
+  var links = {
+    messenger: C.MESSENGER_HANDLE ? "https://m.me/" + encodeURIComponent(C.MESSENGER_HANDLE) : "",
+    email: C.EMAIL ? "mailto:" + C.EMAIL + "?subject=" + encodeURIComponent("Quote request") : "",
+    viber: phone ? "viber://chat?number=" + encodeURIComponent(phone) : "",
+    sms: phone ? "sms:" + phone : ""
+  };
+  var any = false;
+  $all('[data-link]').forEach(function(a){
+    var k=a.getAttribute('data-link'), href=links[k];
+    if (href){ a.href=href; any=true; if(k==="messenger"){a.target="_blank";a.rel="noopener";} }
+    else if (!a.classList.contains('fab')) a.classList.add('hidden');
+  });
+  if (!any) document.getElementById('no-contact').classList.remove('hidden');
+  var g=document.querySelector('[data-href="GUIDE_CATALOG_URL"]');
+  if (C.GUIDE_CATALOG_URL){ g.href=C.GUIDE_CATALOG_URL; g.target="_blank"; g.rel="noopener"; } else { g.textContent="Order via Messenger →"; g.href=links.messenger||"#contact"; }
+  var b=document.getElementById('reg-badge');
+  if (C.DTI_NO || C.BIR_REGISTERED){
+    b.classList.add('ok');
+    document.getElementById('reg-title').textContent =
+      (C.DTI_NO ? "DTI-registered" : "") + (C.DTI_NO && C.BIR_REGISTERED ? " · " : "") + (C.BIR_REGISTERED ? "BIR-registered" : "");
+    document.getElementById('reg-detail').textContent =
+      (C.DTI_NO ? "DTI Business Name No. " + C.DTI_NO + ". " : "") + (C.BIR_REGISTERED ? "Invoices issued for sales of ₱500 or more." : "");
+  }
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
